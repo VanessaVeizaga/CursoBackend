@@ -1,0 +1,12 @@
+[
+{"id": 1, "title": "Botella", "description": "Botella de plástico", "price": 8.15, "thumbnail":"", "code": 23, "stock":201},
+{"id": 2, "title": "Vaso", "description": "Vaso de vidrio", "price": 6.15, "thumbnail":"", "code": 28, "stock":906},
+{"id": 3, "title": "Pelota", "description": "Pelota de fútbol", "price": 5.75, "thumbnail":"", "code": 10, "stock":345},
+{"id": 4, "title": "Crema", "description": "Crema corporal", "price": 2.35, "thumbnail":"", "code": 33, "stock":65},
+{"id": 5, "title": "Peine", "description": "Peine plástico", "price": 1.25, "thumbnail":"", "code": 68, "stock":271},
+{"id": 6, "title": "Jarro", "description": "Jarro antiadherente", "price": 10.70, "thumbnail":"", "code": 2, "stock":985},
+{"id": 7, "title": "Mochila", "description": "Mochila espalda lisa 45 cm", "price": 12.45, "thumbnail":"", "code": 56, "stock":706},
+{"id": 8, "title": "Cuaderno", "description": "Cuaderno cuadriculado 84 hojas", "price": 3.85, "thumbnail":"", "code": 77, "stock":451},
+{"id": 9, "title": "Molde", "description": "Molde para tarta 24 cm", "price": 7.20, "thumbnail":"", "code": 34, "stock":367},
+{"id": 10, "title": "Canopla", "description": "Canopla de dos pisos", "price": 5.95, "thumbnail":"", "code": 47, "stock":609}
+]
