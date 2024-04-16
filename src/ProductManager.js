@@ -1,15 +1,14 @@
 
-const { log } = require('console');
-const fs = require('fs')
+import fs from 'fs';
 
 class ProductManager {
     #path;
     constructor() {
-        this.#path = './products.json'
+        this.#path = './products.json';
     }
 
-    async addProduct(title, description, price, thumbnail, code, stock) {
-        this.#validateParameters(title, description, price, thumbnail, code, stock);
+    async addProduct(title, description, price, thumbnail, code, stock, status, category) {
+        this.#validateParameters(title, description, price, code, stock, status, category);
         await this.#validateCode(code);
         const product = {
           id: await this.#getNextId(),
@@ -19,14 +18,18 @@ class ProductManager {
           thumbnail,
           code,
           stock,
+          status: true,
+          category
         };
         let products = await this.#getObject();
         products.push(product);
         this.#setObject(products);
+        return product;
       }
 
-    #validateParameters(title, description, price, thumbnail, code, stock) {
-        const parameters = [title, description, price, thumbnail, code, stock];
+    #validateParameters(title, description, price, code, stock, status, category) {
+        const parameters = [title, description, price, code, stock, status, category];
+        console.log(parameters);
         parameters.forEach(element => {
             if(typeof element === "undefined") {
                 throw new Error("Al agregar un nuevo producto, debe ingresar todos los parámetros.")
@@ -65,7 +68,6 @@ class ProductManager {
 
     async getProducts() {
         let products = await this.#getObject();
-        console.log(products)
         return products; 
     }
 
@@ -75,22 +77,26 @@ class ProductManager {
         if (!product) {
             throw new Error("Not found");
         }
-        console.log(product);
+        return product;
     };
 
-    async updateProduct(id, key, value) {
-        if (key == 'id') {
+    async updateProduct(id, propToUpdate) {
+        if ('id' in propToUpdate) {
             throw new Error("The id property cannot be modified")
         }
         try {
             let products = await this.#getObject();
             const product = products.find((prod) => prod.id === id);
             let indexProduct = products.indexOf(product);
-            products[indexProduct][key] = value;
+            for(let key in propToUpdate) {
+                products[indexProduct][key] = propToUpdate[key];
+            }
             this.#setObject(products);
+            return products[indexProduct];
         } catch(error) {
             throw new Error("Product not found");
         }
+        
     }
 
     async deleteProduct(id) {
@@ -100,13 +106,14 @@ class ProductManager {
             let indexProduct = products.indexOf(product);
             products.splice(indexProduct, 1);
             this.#setObject(products);
+            return products;
         } catch(error) {
             throw new Error("Product not found");
         }  
     };
 } 
 
-module.exports = { ProductManager };
+export default ProductManager
 
 
 

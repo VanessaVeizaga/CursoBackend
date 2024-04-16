@@ -1,37 +1,18 @@
-const express = require('express');
-
-const { ProductManager } = require('./ProductManager');
-
+import express from 'express';
+import ProductManager from './ProductManager.js';
+import productsRouter from './routes/products.routes.js';
+import CartsManager from './CartsManager.js';
+import cartsRouter from './routes/carts.routes.js';
 const app = express();
 
 app.use(express.urlencoded({extended:true}))
 
+//para poder leer los json
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/products', async (req, res)=>{
-    try {
-        const productManager = new ProductManager();
-        let products = await productManager.getProducts();
-        const limit = req.query.limit;
-        if (limit) {
-            products = products.slice(0, limit);
-        }
-        res.send({products});
-    } catch (error) {
-        res.send('Error:', error);
-    }
-});
+app.use('/api/products', productsRouter)
 
-app.get('/products/:pid', async (req, res)=>{
-    try {
-        const productManager = new ProductManager();
-        let products = await productManager.getProducts();
-        const pId = parseInt(req.params.pid);
-        const product = products.find(product => product.id === pId);
-        if (!product) return res.send("Producto no encontrado")
-        res.send(product);
-    } catch (error) {
-        res.send('Error:', error);
-    }
-});
+app.use('/api/carts', cartsRouter)
 
 app.listen(8080, ()=>console.log("¡Servidor arriba en el puerto 8080!"));
